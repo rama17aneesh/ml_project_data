@@ -1,0 +1,22 @@
+
+services:
+  app:
+    user: "${USER_ID:- 1000}"
+    hostname: "${HOST:- ml-project}"
+    image: mlproject-data
+    container_name: mlproject-data
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+      args:
+        USER_NAME: "${USERNAME:-ramaaneesh}"
+        USER_ID:  "${USER_ID:-1000}"
+    volumes:
+      - ./:/app/
+      - ~/.config/gcloud/:/home/${USER_NAME}/.config/gcloud
+      - ~/.ssh:/home/${USER_NAME}/.ssh
+    ports:
+      - 8888:8888
+    ipc: host
+    init: true  
+
